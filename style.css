@@ -35,6 +35,8 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 /* Outer page frame and inner text column */
 .frame { max-width: 71rem; margin: 0 auto; padding-inline: 2rem; }
 .col { max-width: 50rem; }
+/* Research and Policy lists use the full frame width */
+.wide .col { max-width: none; }
 
 /* ── Navigation ribbon ── */
 .nav {
