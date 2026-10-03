@@ -225,6 +225,26 @@ p:last-child { margin-bottom: 0; }
 }
 .pub-meta .me { color: var(--fg); font-weight: 400; }
 .pub-summary { margin: 0.625rem 0 0; font-size: 0.9375rem; line-height: 1.6; }
+.pubs.with-covers li { grid-template-columns: 5rem 5.5rem 1fr; }
+.pub-cover { display: block; align-self: start; }
+.pub-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+.pub-cover:hover img { box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16); }
+.pub-cover-missing {
+  aspect-ratio: 1 / 1.414;
+  border: 1px dashed var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+.pub-trans { font-weight: 300; color: var(--muted); }
 .pub-body details { margin-top: 0.5rem; }
 .pub-body summary { cursor: pointer; color: var(--link); font-size: 0.875rem; }
 .pub-body details p { margin: 0.625rem 0 0; font-size: 0.9375rem; }
@@ -307,7 +327,8 @@ p:last-child { margin-bottom: 0; }
   section.block { padding-block: 2.75rem; }
   h2 { font-size: 1.5rem; }
   .page-head h1 { font-size: 2.125rem; }
-  .pubs li, .entries li { grid-template-columns: 1fr; gap: 0.35rem; }
+  .pubs li, .entries li, .pubs.with-covers li { grid-template-columns: 1fr; gap: 0.35rem; }
+  .pub-cover { width: 6rem; margin-block: 0.25rem 0.5rem; }
   .pub-year, .entry-year { padding-top: 0; }
   .facts { grid-template-columns: 1fr; gap: 0.15rem; }
   .facts dt { padding-top: 0.75rem; }
