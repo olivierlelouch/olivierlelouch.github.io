@@ -301,6 +301,22 @@ p:last-child { margin-bottom: 0; }
 }
 .entry-body { min-width: 0; }
 .entry-body .where { color: var(--muted); font-size: 0.9375rem; margin: 0.2rem 0 0; }
+/* short bullet points under a CV entry; they sit inside .entries li, so they
+   undo its grid, rule and padding */
+.entries .entry-notes { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.9375rem; }
+.entries .entry-notes li { display: list-item; border: 0; padding: 0; margin: 0.2rem 0 0; }
+
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--link);
+  color: var(--link);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.button:hover { background: var(--link); color: #ffffff; text-decoration: none; }
+.button.placeholder { border-color: var(--rule); color: var(--muted); font-style: italic; text-transform: none; letter-spacing: 0; cursor: default; }
 
 /* Contact facts */
 .facts {
