@@ -82,53 +82,36 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .nav nav a[aria-current="page"] { color: var(--fg); }
 
 /* ── Hero ── */
-/* The photograph is a wide scene, so it fills the band and the words sit over
-   it, as they did when the headshot was a cut-out. A scrim darkens only the
-   right-hand side, where the text is, and stays clear over him on the left.
-   The image is 1584x672 and the band 416px tall, so cover trims the sky and the
-   nearest lavender rows. */
+/* The photograph is shown whole, at the band's full height, on the left; the
+   rest of the band is a warm brown-black that carries the text. The last
+   quarter of the photo fades into that colour, so there is no hard seam and
+   nothing is cropped. 26rem tall x 1264/842 gives a photo 39rem wide. */
 .ribbon {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: #140e09;
-  color: #ffffff;
-}
-.ribbon-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* sits low in the photograph, so the band shows lavender rather than sky;
-     his hair starts at 22% of the source height, which is as far down as the
-     crop can go and still leave room above his head */
-  object-position: center 48%;
-  display: block;
-}
-.ribbon::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(95deg,
-    rgba(26, 18, 11, 0) 0%,
-    rgba(26, 18, 11, 0.1) 32%,
-    rgba(26, 18, 11, 0.5) 50%,
-    rgba(26, 18, 11, 0.72) 70%,
-    rgba(26, 18, 11, 0.78) 100%);
-}
-.ribbon-inner {
+  --photo-w: 39rem;
+  --hero-dark: #241a11;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 36rem);
-  align-items: center;
-  min-height: 26rem;
+  grid-template-columns: var(--photo-w) 1fr;
+  height: 26rem;
+  overflow: hidden;
+  color: #ffffff;
+  background: var(--hero-dark);
+}
+.ribbon-photo {
+  display: block;
+  width: var(--photo-w);
+  height: 100%;
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(90deg, #000 76%, rgba(0,0,0,.82) 83%, rgba(0,0,0,.45) 91%, rgba(0,0,0,.12) 97%, transparent);
+  mask-image: linear-gradient(90deg, #000 76%, rgba(0,0,0,.82) 83%, rgba(0,0,0,.45) 91%, rgba(0,0,0,.12) 97%, transparent);
 }
 .ribbon-text {
-  grid-column: 2;
+  align-self: center;
   min-width: 0;
-  padding-block: 3rem;
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: 2rem 3rem;
+  box-sizing: content-box;
   text-shadow: 0 1px 10px rgba(26, 18, 11, 0.5);
 }
 .ribbon-text h1 {
@@ -359,27 +342,22 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 22rem; }
+  .ribbon { --photo-w: 33rem; height: 22rem; }
+  .ribbon-text { padding: 1.5rem 2rem 1.5rem 2.5rem; }
   .ribbon-text h1 { font-size: 2.875rem; }
 }
 @media (max-width: 46rem) {
   .frame { padding-inline: 1.5rem; }
-  .ribbon-inner {
-    grid-template-columns: 1fr;
-    align-items: end;
-    /* tall enough that the words sit under him rather than across his face;
-       below that height the text block rides up over it */
-    min-height: 31rem;
+  /* a phone has no room beside him, so the photo goes full width, still whole,
+     and the words follow on the dark band underneath */
+  .ribbon { grid-template-columns: 1fr; height: auto; background: var(--hero-dark); }
+  .ribbon-photo {
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent);
+    mask-image: linear-gradient(180deg, #000 88%, transparent);
   }
-  .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
-  /* no room beside him on a phone, so the scrim runs bottom-up instead */
-  .ribbon-bg { object-position: 8% center; }
-  .ribbon::after {
-    background: linear-gradient(180deg,
-      rgba(26, 18, 11, 0.15) 0%,
-      rgba(26, 18, 11, 0.5) 45%,
-      rgba(26, 18, 11, 0.84) 100%);
-  }
+  .ribbon-text { box-sizing: border-box; max-width: none; padding: 1.25rem 1.5rem 2.5rem; }
   .ribbon-text h1 { font-size: 2.375rem; }
   section.block { padding-block: 2.75rem; }
   h2 { font-size: 1.5rem; }
