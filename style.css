@@ -101,9 +101,10 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* keeps the top of his head in frame with room above it: his hair starts at
-     22% of the source height in this photograph, far lower than in the last */
-  object-position: center 22%;
+  /* sits low in the photograph, so the band shows lavender rather than sky;
+     his hair starts at 22% of the source height, which is as far down as the
+     crop can go and still leave room above his head */
+  object-position: center 48%;
   display: block;
 }
 .ribbon::after {
