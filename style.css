@@ -286,7 +286,7 @@ p:last-child { margin-bottom: 0; }
 .entries { list-style: none; margin: 0; padding: 0; }
 .entries li {
   display: grid;
-  grid-template-columns: 8rem 1fr;
+  grid-template-columns: 9.5rem 1fr;
   gap: 0 1.75rem;
   border-bottom: 1px solid var(--rule);
   padding-block: 1.125rem;
@@ -294,16 +294,17 @@ p:last-child { margin-bottom: 0; }
 .entries li:first-child { padding-top: 0; }
 .entries li:last-child { border-bottom: none; padding-bottom: 0; }
 .entry-year {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   padding-top: 0.15em;
 }
 .entry-body { min-width: 0; }
-.entry-body .where { color: var(--muted); font-size: 0.9375rem; margin: 0.2rem 0 0; }
+.entry-body h3 { font-size: 1.1875rem; }
+.entry-body .where { color: var(--muted); font-size: 1.0625rem; margin: 0.25rem 0 0; }
 /* short bullet points under a CV entry; they sit inside .entries li, so they
    undo its grid, rule and padding */
-.entries .entry-notes { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.9375rem; }
+.entries .entry-notes { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 1.0625rem; }
 .entries .entry-notes li { display: list-item; border: 0; padding: 0; margin: 0.2rem 0 0; }
 
 .button {
