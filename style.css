@@ -85,7 +85,8 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 /* The photograph is a wide scene (1792x592, about 3:1), so it fills the band
    and the words sit over the lavender on the right. A scrim darkens only that
    side and stays clear over him on the left. At a 1280px window the photo's
-   own proportions give almost exactly the band's 416px, so little is cropped;
+   own proportions give about 423px against the band's 384px, so a strip of
+   lavender is trimmed off the bottom;
    wider windows lose some of the bottom, never the top. */
 .ribbon {
   position: relative;
@@ -122,12 +123,12 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   display: grid;
   grid-template-columns: 1fr minmax(0, 36rem);
   align-items: center;
-  min-height: 26rem;
+  min-height: 24rem;
 }
 .ribbon-text {
   grid-column: 2;
   min-width: 0;
-  padding-block: 3rem;
+  padding-block: 2.5rem;
   text-shadow: 0 1px 10px rgba(26, 18, 11, 0.5);
 }
 .ribbon-text h1 {
@@ -375,7 +376,7 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 22rem; }
+  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 20rem; }
   .ribbon-text h1 { font-size: 2.875rem; }
 }
 @media (max-width: 46rem) {
