@@ -5,7 +5,7 @@
   --muted: #666666;
   --rule: #e0e0e0;
   --navy: #003863;
-  --link: #0067b1;
+  --link: #003863;
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Nunito Sans", "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
@@ -81,20 +81,21 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .nav nav a[aria-current="page"] { color: var(--fg); }
 
 /* ── Hero ribbon ── */
-/* Band starts at the headshot's own near-black (measured 4,4,4) so the photo has
-   no visible edge, then warms to deep blue to the right of him. No edge mask:
-   his shoulders run to 8%-96% of the frame lower down and would be clipped. */
+/* Dark band matched to the headshot's own background (measured rgb(4,4,4))
+   across the photo column, turning navy only to the right of him, so the photo
+   has no visible edge. Photo cropped to 1043x818 (headroom off the top, lower
+   torso off the bottom), so cover trims the sides, not his shoulders. */
 .ribbon {
-  background: linear-gradient(100deg, #050506 0%, #060709 38%, #0d1826 64%, #16283f 86%, #1c3252 100%);
-  color: #fff;
+  background: linear-gradient(100deg, #040404 0%, #050709 41%, #0a1826 60%, #10273b 82%, #153150 100%);
+  color: #ffffff;
   overflow: hidden;
 }
 .ribbon-inner {
   display: grid;
-  grid-template-columns: 23rem 1fr;
-  gap: 0 3.5rem;
+  grid-template-columns: 26rem 1fr;
+  gap: 0 3rem;
   align-items: end;
-  min-height: 31rem;
+  min-height: 22rem;
 }
 .ribbon-photo {
   align-self: stretch;
@@ -106,14 +107,14 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center bottom;
   display: block;
 }
 
 .ribbon-text {
   min-width: 0;
   align-self: center;
-  padding-block: 3.5rem;
+  padding-block: 2.75rem;
 }
 .ribbon-text h1 {
   font-family: var(--serif);
@@ -122,20 +123,21 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   line-height: 1.06;
   letter-spacing: -0.015em;
   margin: 0 0 0.9rem;
-  color: #fff;
+  color: #ffffff;
   text-wrap: balance;
 }
 .ribbon-text .title {
   font-size: 1.0625rem;
   line-height: 1.5;
-  color: #c3ccd9;
+  color: #a7b4c3;
   margin: 0 0 1.25rem;
 }
-.ribbon-text .title a { color: #8fb9e8; }
+/* the one link in the band needs a lighter blue than the navy used on white */
+.ribbon-text .title a { color: #94c3ea; }
 .ribbon-text .blurb {
   font-size: 1.0625rem;
   line-height: 1.6;
-  color: #dde3ec;
+  color: #d6dde5;
   margin: 0;
   max-width: 34rem;
 }
@@ -151,21 +153,21 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: #dde3ec;
+  color: #d6dde5;
   font-size: 0.9375rem;
 }
-.icon-link:hover { color: #fff; text-decoration: none; }
+.icon-link:hover { color: #ffffff; text-decoration: none; }
 .icon-link .icon {
   flex: none;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: #fff;
+  background: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.icon-link .icon svg { width: 1rem; height: 1rem; fill: #0f1824; display: block; }
+.icon-link .icon svg { width: 1rem; height: 1rem; fill: #10273b; display: block; }
 
 /* ── Sections ── */
 section.block {
@@ -251,11 +253,41 @@ p:last-child { margin-bottom: 0; }
 .pub-body summary { cursor: pointer; color: var(--link); font-size: 0.875rem; }
 .pub-body details p { margin: 0.625rem 0 0; font-size: 0.9375rem; }
 
-/* Education / dated entries */
+/* Named people (PhD supervisors) — side by side, no card chrome */
+.people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem 3rem;
+}
+.people li {
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+}
+.people h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.person-role {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.person-links {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+/* Dated entries (teaching, CV) — the label column takes a term as well as a year */
 .entries { list-style: none; margin: 0; padding: 0; }
 .entries li {
   display: grid;
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: 8rem 1fr;
   gap: 0 1.75rem;
   border-bottom: 1px solid var(--rule);
   padding-block: 1.125rem;
@@ -311,7 +343,7 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 18rem 1fr; gap: 0 2.5rem; min-height: 27rem; }
+  .ribbon-inner { grid-template-columns: 20rem 1fr; gap: 0 2rem; min-height: 19rem; }
   .ribbon-text h1 { font-size: 2.875rem; }
 }
 @media (max-width: 46rem) {
@@ -323,7 +355,7 @@ p:last-child { margin-bottom: 0; }
   }
   /* show the whole portrait rather than cropping it */
   .ribbon-photo { height: auto; justify-content: center; padding-top: 2rem; }
-  .ribbon-photo img { width: auto; max-width: 17rem; height: auto; }
+  .ribbon-photo img { width: auto; max-width: 21rem; height: auto; }
   .ribbon-text { padding-block: 1.5rem 3rem; }
   .ribbon-text h1 { font-size: 2.375rem; }
   section.block { padding-block: 2.75rem; }
