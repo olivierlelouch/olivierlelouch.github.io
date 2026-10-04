@@ -4,8 +4,9 @@
   --fg: #1a1a1a;
   --muted: #666666;
   --rule: #e0e0e0;
-  --navy: #003863;
-  --link: #003863;
+  /* Accent keyed to the lavender in the hero photograph, darkened until it
+     clears 7:1 against white so links stay comfortable to read. */
+  --link: #5b4b8a;
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Nunito Sans", "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
@@ -80,77 +81,41 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .nav nav a:hover { color: var(--fg); text-decoration: none; }
 .nav nav a[aria-current="page"] { color: var(--fg); }
 
-/* ── Hero ribbon ── */
-/* The headshot is now a scene rather than a cut-out, so it fills the band and
-   the text sits over it. A scrim darkens only the right-hand side, where the
-   words are, and stays clear over him on the left. */
-.ribbon {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: #080c12;
-  color: #ffffff;
-}
+/* ── Hero ── */
+/* The photograph is a wide scene and Pierre wants all of it, so nothing is
+   cropped: the image runs the full width at its own 1584x672 proportions and
+   the words sit underneath it on white, where they are unambiguously legible.
+   Overlaying them on the lavender was tried and rejected. */
+.ribbon { background: var(--bg); }
 .ribbon-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* keeps his face in frame once the wide crop trims top and bottom */
-  object-position: center 8%;
   display: block;
+  width: 100%;
+  height: auto;
 }
-.ribbon::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(95deg,
-    rgba(8, 12, 18, 0) 0%,
-    rgba(8, 12, 18, 0.1) 34%,
-    rgba(8, 12, 18, 0.58) 52%,
-    rgba(8, 12, 18, 0.78) 70%,
-    rgba(8, 12, 18, 0.84) 100%);
-}
-.ribbon-inner {
-  display: grid;
-  grid-template-columns: 1fr minmax(0, 36rem);
-  align-items: center;
-  min-height: 30rem;
-}
-.ribbon-text { grid-column: 2; }
-
-.ribbon-text {
-  min-width: 0;
-  padding-block: 3rem;
-  text-shadow: 0 1px 10px rgba(8, 12, 18, 0.45);
-}
+.ribbon-inner { padding-block: 2.5rem 3rem; }
+.ribbon-text { max-width: 54rem; }
 .ribbon-text h1 {
   font-family: var(--serif);
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.015em;
-  margin: 0 0 0.9rem;
-  color: #ffffff;
+  margin: 0 0 0.75rem;
+  color: var(--fg);
   text-wrap: balance;
 }
 .ribbon-text .title {
   font-size: 1.0625rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.86);
-  margin: 0 0 1.25rem;
+  color: var(--muted);
+  margin: 0 0 1rem;
 }
-/* the one link in the band needs a lighter blue than the navy used on white */
-.ribbon-text .title a { color: #a9d4f5; }
 .ribbon-text .blurb {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--fg);
   margin: 0;
-  max-width: 34rem;
+  max-width: 38rem;
 }
 
 .cta {
@@ -158,27 +123,27 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 }
 .icon-link {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--fg);
   font-size: 0.9375rem;
 }
-.icon-link:hover { color: #ffffff; text-decoration: none; }
+.icon-link:hover { color: var(--link); text-decoration: none; }
 .icon-link .icon {
   flex: none;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--link);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.icon-link .icon svg { width: 1rem; height: 1rem; fill: #0f1a24; display: block; }
+.icon-link .icon svg { width: 1rem; height: 1rem; fill: #fff; display: block; }
 
 /* ── Sections ── */
 section.block {
@@ -354,25 +319,11 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 25rem; }
-  .ribbon-text h1 { font-size: 2.875rem; }
+  .ribbon-text h1 { font-size: 2.75rem; }
 }
 @media (max-width: 46rem) {
   .frame { padding-inline: 1.5rem; }
-  .ribbon-inner {
-    grid-template-columns: 1fr;
-    align-items: end;
-    min-height: 26rem;
-  }
-  .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
-  /* no room beside him on a phone, so the scrim runs bottom-up instead */
-  .ribbon-bg { object-position: 32% 22%; }
-  .ribbon::after {
-    background: linear-gradient(180deg,
-      rgba(8, 12, 18, 0.15) 0%,
-      rgba(8, 12, 18, 0.5) 45%,
-      rgba(8, 12, 18, 0.84) 100%);
-  }
+  .ribbon-inner { padding-block: 1.75rem 2.25rem; }
   .ribbon-text h1 { font-size: 2.375rem; }
   section.block { padding-block: 2.75rem; }
   h2 { font-size: 1.5rem; }
