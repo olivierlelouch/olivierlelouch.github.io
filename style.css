@@ -87,9 +87,19 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
    right-hand side, where the text is, and stays clear over him on the left.
    The image is 1584x672 and the band 480px tall, so cover trims very little. */
 .ribbon {
+  /* The banner lines up with the menu bar rather than bleeding to the window
+     edge. That is what lets the whole photograph show: inside this width its
+     own 1584x672 proportions give a height close to the one Pierre wanted,
+     so nothing has to be cropped. */
+  max-width: 71rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+.ribbon-wrap {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  aspect-ratio: 1584 / 672;
   background: #140e09;
   color: #ffffff;
 }
@@ -100,11 +110,10 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* keeps the top of his head in frame; measured at 4.5% of the source height */
-  object-position: center 8%;
+  object-position: center;
   display: block;
 }
-.ribbon::after {
+.ribbon-wrap::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -117,15 +126,16 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
     rgba(26, 18, 11, 0.78) 100%);
 }
 .ribbon-inner {
+  position: absolute;
+  inset: 0;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 36rem);
+  grid-template-columns: 1fr minmax(0, 34rem);
   align-items: center;
-  min-height: 26rem;
+  padding-inline: 2.25rem;
 }
 .ribbon-text {
   grid-column: 2;
   min-width: 0;
-  padding-block: 3rem;
   text-shadow: 0 1px 10px rgba(26, 18, 11, 0.5);
 }
 .ribbon-text h1 {
@@ -356,20 +366,26 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 22rem; }
+  .ribbon-inner { grid-template-columns: 1fr minmax(0, 26rem); }
+  .ribbon-text h1 { font-size: 2.5rem; }
   .ribbon-text h1 { font-size: 2.875rem; }
 }
 @media (max-width: 46rem) {
   .frame { padding-inline: 1.5rem; }
+  /* a 2.36:1 strip is far too short to hold the text on a phone, so here the
+     banner goes back to bleeding edge to edge and cropping to a usable height */
+  .ribbon { max-width: none; padding-inline: 0; }
+  .ribbon-wrap { aspect-ratio: auto; min-height: 24rem; }
   .ribbon-inner {
+    position: relative;
     grid-template-columns: 1fr;
     align-items: end;
     min-height: 24rem;
+    padding-inline: 1.5rem;
   }
   .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
-  /* no room beside him on a phone, so the scrim runs bottom-up instead */
   .ribbon-bg { object-position: 16% 18%; }
-  .ribbon::after {
+  .ribbon-wrap::after {
     background: linear-gradient(180deg,
       rgba(26, 18, 11, 0.15) 0%,
       rgba(26, 18, 11, 0.5) 45%,
