@@ -94,16 +94,34 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   background: #140e09;
   color: #ffffff;
 }
+.ribbon {
+  /* how far the photo sits in from the left edge; the strip it leaves is
+     filled with a blurred copy of the same picture, so no edge shows */
+  --photo-inset: 3rem;
+}
+.ribbon::before {
+  content: "";
+  position: absolute;
+  inset: -2rem;
+  z-index: -3;
+  background: url("assets/photo.jpg") left top / cover no-repeat;
+  filter: blur(18px);
+}
 .ribbon-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: var(--photo-inset);
   z-index: -2;
-  width: 100%;
+  width: calc(100% - var(--photo-inset));
   height: 100%;
   object-fit: cover;
-  /* his hair touches the top edge of the source, so the crop is anchored there */
-  object-position: center top;
+  /* his hair touches the top edge of the source, so the crop is anchored
+     there; anchored left too, so any trimming comes off the far right */
+  object-position: left top;
   display: block;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 2.5rem);
+  mask-image: linear-gradient(90deg, transparent, #000 2.5rem);
 }
 .ribbon::after {
   content: "";
@@ -388,7 +406,8 @@ p:last-child { margin-bottom: 0; }
   }
   .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
   /* no room beside him on a phone, so the scrim runs bottom-up instead */
-  .ribbon-bg { object-position: 7% center; }
+  .ribbon { --photo-inset: 0rem; }
+  .ribbon-bg { object-position: 7% center; -webkit-mask-image: none; mask-image: none; }
   .ribbon::after {
     background: linear-gradient(180deg,
       rgba(26, 18, 11, 0.15) 0%,
