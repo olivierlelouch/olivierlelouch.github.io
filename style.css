@@ -82,40 +82,77 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .nav nav a[aria-current="page"] { color: var(--fg); }
 
 /* ── Hero ── */
-/* The photograph is a wide scene and Pierre wants all of it, so nothing is
-   cropped: the image runs the full width at its own 1584x672 proportions and
-   the words sit underneath it on white, where they are unambiguously legible.
-   Overlaying them on the lavender was tried and rejected. */
-.ribbon { background: var(--bg); }
-.ribbon-bg {
-  display: block;
-  width: 100%;
-  height: auto;
+/* The photograph is a wide scene, so it fills the band and the words sit over
+   it, as they did when the headshot was a cut-out. A scrim darkens only the
+   right-hand side, where the text is, and stays clear over him on the left.
+   The image is 1584x672 and the band 480px tall, so cover trims very little. */
+.ribbon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #0d0a16;
+  color: #ffffff;
 }
-.ribbon-inner { padding-block: 2.5rem 3rem; }
-.ribbon-text { max-width: 54rem; }
+.ribbon-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* keeps the top of his head in frame; measured at 4.5% of the source height */
+  object-position: center 15%;
+  display: block;
+}
+.ribbon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(95deg,
+    rgba(20, 14, 32, 0) 0%,
+    rgba(20, 14, 32, 0.1) 32%,
+    rgba(20, 14, 32, 0.56) 50%,
+    rgba(20, 14, 32, 0.78) 70%,
+    rgba(20, 14, 32, 0.84) 100%);
+}
+.ribbon-inner {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 36rem);
+  align-items: center;
+  min-height: 30rem;
+}
+.ribbon-text {
+  grid-column: 2;
+  min-width: 0;
+  padding-block: 3rem;
+  text-shadow: 0 1px 10px rgba(20, 14, 32, 0.5);
+}
 .ribbon-text h1 {
   font-family: var(--serif);
-  font-size: 3.25rem;
+  font-size: 3.5rem;
   font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.015em;
-  margin: 0 0 0.75rem;
-  color: var(--fg);
+  margin: 0 0 0.9rem;
+  color: #ffffff;
   text-wrap: balance;
 }
 .ribbon-text .title {
   font-size: 1.0625rem;
   line-height: 1.5;
-  color: var(--muted);
-  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0 0 1.25rem;
 }
+/* the one link in the band: a light lavender, since the navy-on-white accent
+   would disappear against the photograph */
+.ribbon-text .title a { color: #d3bff2; }
 .ribbon-text .blurb {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
-  color: var(--fg);
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
-  max-width: 38rem;
+  max-width: 34rem;
 }
 
 .cta {
@@ -123,27 +160,27 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 .icon-link {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--fg);
+  color: rgba(255, 255, 255, 0.95);
   font-size: 0.9375rem;
 }
-.icon-link:hover { color: var(--link); text-decoration: none; }
+.icon-link:hover { color: #ffffff; text-decoration: none; }
 .icon-link .icon {
   flex: none;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: var(--link);
+  background: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.icon-link .icon svg { width: 1rem; height: 1rem; fill: #fff; display: block; }
+.icon-link .icon svg { width: 1rem; height: 1rem; fill: var(--link); display: block; }
 
 /* ── Sections ── */
 section.block {
@@ -319,11 +356,25 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 60rem) {
-  .ribbon-text h1 { font-size: 2.75rem; }
+  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 25rem; }
+  .ribbon-text h1 { font-size: 2.875rem; }
 }
 @media (max-width: 46rem) {
   .frame { padding-inline: 1.5rem; }
-  .ribbon-inner { padding-block: 1.75rem 2.25rem; }
+  .ribbon-inner {
+    grid-template-columns: 1fr;
+    align-items: end;
+    min-height: 26rem;
+  }
+  .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
+  /* no room beside him on a phone, so the scrim runs bottom-up instead */
+  .ribbon-bg { object-position: 16% 18%; }
+  .ribbon::after {
+    background: linear-gradient(180deg,
+      rgba(20, 14, 32, 0.15) 0%,
+      rgba(20, 14, 32, 0.5) 45%,
+      rgba(20, 14, 32, 0.84) 100%);
+  }
   .ribbon-text h1 { font-size: 2.375rem; }
   section.block { padding-block: 2.75rem; }
   h2 { font-size: 1.5rem; }
