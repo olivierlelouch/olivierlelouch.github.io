@@ -1,14 +1,14 @@
 # Olivier Lelouch, personal website
 
-Plain HTML and CSS, no build step. Publish with GitHub Pages (Settings > Pages > Deploy from branch, root folder).
+Plain HTML and CSS, no build step, published with GitHub Pages.
 
-- `index.html`: home page (photo, position, bio, selected research, contact)
-- `research.html`: published papers, working papers, work in progress
-- `cv.html`: CV summary and link to the full PDF
+- `index.html`: home page (banner, About Me, work in progress, PhD supervision, contact)
+- `research.html`: work in progress, working papers and thesis
+- `applied-work.html`: policy reports and contributions to institutional publications
+- `cv.html`: CV summary and the download button for the full PDF
 - `style.css`: all styling; the accent colour is `--accent` at the top
-- `papers/`: PDFs of papers and `cv.pdf`
-- `assets/`: photo (replace the "OL" placeholder box in index.html with `<img class="photo" src="assets/photo.jpg" alt="Olivier Lelouch">`)
+- `site.js`: menu bar shadow on scroll, and scroll-to-top on page load
+- `assets/`: banner photo and report covers
+- `papers/`: PDFs, including `cv.pdf` once supplied
 
-Everything in [square brackets] is a placeholder waiting for real content.
-
-To add a paper, copy one `<li class="paper">` block in research.html and edit the title, co-authors, journal, links and abstract.
+The home page's "Work in progress" list is a copy of the one on research.html; update both together.
