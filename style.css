@@ -107,15 +107,16 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   object-position: left top;
   display: block;
 }
-/* the background behind the words is softly blurred, ramping in from the
+/* the background behind the words is lightly blurred, to about the softness
+   of the out-of-focus scenery on the left, ramping in from the
    middle so he stays sharp on the left; it sits under the scrim */
 .ribbon::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   -webkit-mask-image: linear-gradient(90deg, transparent 38%, #000 60%);
   mask-image: linear-gradient(90deg, transparent 38%, #000 60%);
 }
