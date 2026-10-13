@@ -136,7 +136,9 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   display: grid;
   grid-template-columns: 1fr minmax(0, 36rem);
   align-items: center;
-  min-height: 24rem;
+  /* 384px up to a typical laptop; on bigger screens the band grows with the
+     window so the photo isn't zoomed into a close-up of his face */
+  min-height: clamp(24rem, 22vw, 36rem);
 }
 .ribbon-text {
   grid-column: 2;
@@ -388,6 +390,13 @@ p:last-child { margin-bottom: 0; }
 .footer .frame { padding-block: 2rem 3rem; }
 
 /* ── Responsive ── */
+/* Big screens: everything is sized in rem, so raising the base size scales
+   the whole layout, column width and type together, instead of leaving a
+   1136px column marooned in the middle of the monitor. Media queries in rem
+   still measure against the browser default, so the phone layouts are
+   unaffected. */
+@media (min-width: 1600px) { html { font-size: 112.5%; } }
+@media (min-width: 2200px) { html { font-size: 125%; } }
 @media (max-width: 60rem) {
   .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 20rem; }
   .ribbon-text h1 { font-size: 2.875rem; }
