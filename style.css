@@ -82,93 +82,74 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .nav nav a[aria-current="page"] { color: var(--fg); }
 
 /* ── Hero ── */
-/* The photograph is a wide scene (1792x592, about 3:1), so it fills the band
-   and the words sit over the lavender on the right. A scrim darkens only that
-   side and stays clear over him on the left. At a 1280px window the photo's
-   own proportions give about 423px against the band's 384px, so a strip of
-   lavender is trimmed off the bottom;
-   wider windows lose some of the bottom, never the top. */
+/* The photograph (1264x842, 3:2) is a portrait on an almost white backdrop
+   with empty space on his left. It is never cropped: it is shown whole at the
+   band's full height, flush to the left edge, and the band itself is painted
+   the photo's backdrop colour (sampled ~#fafbfd) so the picture's right edge
+   disappears into it. Because nothing is trimmed, the band height alone sets
+   how big he appears. The words sit on the plain backdrop on the right, in
+   dark type. */
 .ribbon {
+  --band-h: clamp(18rem, 16vw, 26rem);
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #140e09;
-  color: #ffffff;
+  background: #fafbfd;
+  color: var(--fg);
 }
 .ribbon-bg {
   position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
   height: 100%;
-  object-fit: cover;
-  /* pinned to the top left: his hair touches the source's top edge and his
-     shoulder its left edge, so any trimming comes off the right or bottom */
-  object-position: left top;
+  width: auto;
+  max-width: none;
   display: block;
+  /* a short fade on the photo's right edge, which is plain backdrop only,
+     hides any seam between the picture and the band colour */
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, #000 88%, transparent);
 }
-/* the background behind the words is lightly blurred, to about the softness
-   of the out-of-focus scenery on the left, ramping in from the
-   middle so he stays sharp on the left; it sits under the scrim */
-.ribbon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  -webkit-backdrop-filter: blur(0.8px);
-  backdrop-filter: blur(0.8px);
-  -webkit-mask-image: linear-gradient(90deg, transparent 38%, #000 60%);
-  mask-image: linear-gradient(90deg, transparent 38%, #000 60%);
-}
-.ribbon::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(95deg,
-    rgba(26, 18, 11, 0) 0%,
-    rgba(26, 18, 11, 0.1) 32%,
-    rgba(26, 18, 11, 0.5) 50%,
-    rgba(26, 18, 11, 0.72) 70%,
-    rgba(26, 18, 11, 0.78) 100%);
-}
+/* the words start a fixed gap after the photo rather than at the right of the
+   frame, so on a wide monitor they stay beside him instead of drifting off;
+   the subtraction cancels the frame's own centring margin */
 .ribbon-inner {
+  --gap: 3.5rem;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 36rem);
+  grid-template-columns: minmax(0, 36rem);
   align-items: center;
-  /* 384px up to a typical laptop; on bigger screens the band grows with the
-     window so the photo isn't zoomed into a close-up of his face */
-  min-height: clamp(24rem, 22vw, 36rem);
+  padding-left: calc(var(--band-h) * 1.5 + var(--gap) - max(0px, (100% - 71rem) / 2));
+  /* 288px up to a typical laptop (it was 384px); on bigger screens the band
+     grows with the window so he keeps a sensible size next to the bigger text */
+  min-height: var(--band-h);
 }
 .ribbon-text {
-  grid-column: 2;
+  grid-column: 1;
   min-width: 0;
-  padding-block: 2.5rem;
-  text-shadow: 0 1px 10px rgba(26, 18, 11, 0.5);
+  padding-block: 1.5rem;
 }
 .ribbon-text h1 {
   font-family: var(--serif);
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.015em;
-  margin: 0 0 0.9rem;
-  color: #ffffff;
+  margin: 0 0 0.75rem;
+  color: var(--fg);
   text-wrap: balance;
 }
 .ribbon-text .title {
   font-size: 1.0625rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.86);
-  margin: 0 0 1.25rem;
+  color: #4a4a4a;
+  margin: 0 0 1rem;
 }
-/* the one link in the band: a light lavender, since the navy-on-white accent
-   would disappear against the photograph */
-.ribbon-text .title a { color: #e8cdaa; }
+.ribbon-text .title a { color: var(--link); }
 .ribbon-text .blurb {
   font-size: 1.0625rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.95);
+  color: #333333;
   margin: 0;
   max-width: 34rem;
 }
@@ -178,27 +159,28 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
 }
 .icon-link {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--fg);
   font-size: 0.9375rem;
 }
-.icon-link:hover { color: #ffffff; text-decoration: none; }
+.icon-link:hover { color: var(--link); text-decoration: none; }
+/* on the light band the discs swap round: brown disc, white glyph */
 .icon-link .icon {
   flex: none;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--link);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.icon-link .icon svg { width: 1rem; height: 1rem; fill: var(--link); display: block; }
+.icon-link .icon svg { width: 1rem; height: 1rem; fill: #ffffff; display: block; }
 
 /* ── Sections ── */
 section.block {
@@ -398,28 +380,26 @@ p:last-child { margin-bottom: 0; }
 @media (min-width: 1600px) { html { font-size: 112.5%; } }
 @media (min-width: 2200px) { html { font-size: 125%; } }
 @media (max-width: 60rem) {
-  .ribbon-inner { grid-template-columns: 1fr minmax(0, 28rem); min-height: 20rem; }
-  .ribbon-text h1 { font-size: 2.875rem; }
+  .ribbon { --band-h: 16rem; }
+  .ribbon-inner { --gap: 1.5rem; }
+  .ribbon-text h1 { font-size: 2.5rem; }
 }
 @media (max-width: 46rem) {
   .frame { padding-inline: 1.5rem; }
+  /* no room beside him on a phone: the photo goes full width at its own
+     shape, still uncropped, and the words follow underneath */
+  .ribbon-bg {
+    position: static;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
   .ribbon-inner {
-    grid-template-columns: 1fr;
-    align-items: end;
-    /* tall enough that the words sit under him rather than across his face;
-       below that height the text block rides up over it */
-    min-height: 33rem;
+    padding-left: 1.5rem;
+    min-height: 0;
   }
-  .ribbon-text { grid-column: 1; padding-block: 2rem 2.5rem; }
-  /* no room beside him on a phone, so the scrim runs bottom-up instead */
-  .ribbon-bg { object-position: 7% center; }
-  .ribbon::before { display: none; }
-  .ribbon::after {
-    background: linear-gradient(180deg,
-      rgba(26, 18, 11, 0.15) 0%,
-      rgba(26, 18, 11, 0.5) 45%,
-      rgba(26, 18, 11, 0.84) 100%);
-  }
+  .ribbon-text { grid-column: 1; padding-block: 1.5rem 2.25rem; }
   .ribbon-text h1 { font-size: 2.375rem; }
   section.block { padding-block: 2.75rem; }
   h2 { font-size: 1.5rem; }
