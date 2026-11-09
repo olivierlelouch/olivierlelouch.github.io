@@ -100,7 +100,9 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .ribbon-bg {
   position: absolute;
   top: 0;
-  left: 0;
+  /* starts where the page's content starts (the wordmark and the text
+     below), not at the screen's edge */
+  left: calc(max(0px, (100% - 71rem) / 2) + 2rem);
   z-index: -1;
   height: 100%;
   width: auto;
@@ -108,18 +110,19 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   display: block;
   /* a short fade on the photo's right edge, which is plain backdrop only,
      hides any seam between the picture and the band colour */
-  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, #000 88%, transparent);
+  /* and a very short one on the left, so the edge where his shoulder is cut
+     reads as soft rather than as the corner of a rectangle */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 88%, transparent);
 }
 /* the words start a fixed gap after the photo rather than at the right of the
-   frame, so on a wide monitor they stay beside him instead of drifting off;
-   the subtraction cancels the frame's own centring margin */
+   frame, so on a wide monitor they stay beside him instead of drifting off */
 .ribbon-inner {
   --gap: 3.5rem;
   display: grid;
   grid-template-columns: minmax(0, 36rem);
   align-items: center;
-  padding-left: calc(var(--band-h) * 1.5 + var(--gap) - max(0px, (100% - 71rem) / 2));
+  padding-left: calc(2rem + var(--band-h) * 1.5 + var(--gap));
   /* 288px up to a typical laptop (it was 384px); on bigger screens the band
      grows with the window so he keeps a sensible size next to the bigger text */
   min-height: var(--band-h);
@@ -381,7 +384,7 @@ p:last-child { margin-bottom: 0; }
 @media (min-width: 2200px) { html { font-size: 125%; } }
 @media (max-width: 60rem) {
   .ribbon { --band-h: 16rem; }
-  .ribbon-inner { --gap: 1.5rem; }
+  .ribbon-inner { --gap: 1.25rem; }
   .ribbon-text h1 { font-size: 2.5rem; }
 }
 @media (max-width: 46rem) {
