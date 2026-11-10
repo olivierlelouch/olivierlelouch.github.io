@@ -94,7 +94,17 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #fafbfd;
+  /* where the photo ends: the frame's centring margin, its 2rem padding,
+     and the photo's width at band height (3:2) */
+  --photo-end: calc(max(0px, (100% - 71rem) / 2) + 2rem + var(--band-h) * 1.5);
+  /* gradient: the photo's own off-white up to the photo's right edge, so the
+     picture still has no visible border, then warming into a light sand
+     tinted from his suit (#ad8766, hue 28) on the far right */
+  background: #fafbfd linear-gradient(90deg,
+    #fafbfd 0,
+    #fafbfd calc(var(--photo-end) - 3rem),
+    #f3ebe2 calc(var(--photo-end) + 18rem),
+    #e6d3bf 100%);
   color: var(--fg);
 }
 .ribbon-bg {
@@ -388,6 +398,13 @@ p:last-child { margin-bottom: 0; }
   .ribbon-text h1 { font-size: 2.5rem; }
 }
 @media (max-width: 46rem) {
+  /* photo on top, words below: the warmth runs downwards from under the photo */
+  .ribbon {
+    background: #fafbfd linear-gradient(180deg,
+      #fafbfd 0,
+      #fafbfd calc(66.7vw - 1rem),
+      #e9d8c5 100%);
+  }
   .frame { padding-inline: 1.5rem; }
   /* no room beside him on a phone: the photo goes full width at its own
      shape, still uncropped, and the words follow underneath */
