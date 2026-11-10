@@ -376,6 +376,41 @@ p:last-child { margin-bottom: 0; }
 }
 .page-head .lede { font-size: 1.125rem; color: var(--muted); margin: 0; }
 
+/* ── CV page: section menu beside the content ──
+   A left column lists the page's sections and stays in view while the
+   sections scroll past. Both columns carry the same top rule, so the grey
+   line still runs the full width of the page. */
+.cv-layout {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  margin-top: 0;
+}
+.cv-toc { border-top: 1px solid var(--rule); padding: 3.5rem 2.5rem 0 0; }
+.cv-main section.block:first-child { border-top: 1px solid var(--rule); }
+/* clears the sticky menu bar at the top of the window */
+.cv-toc-inner { position: sticky; top: 6.5rem; }
+.cv-toc-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.cv-toc ul { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--rule); }
+.cv-toc li a {
+  display: block;
+  margin-left: -1px;
+  padding: 0.3rem 0 0.3rem 1rem;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  font-size: 0.975rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.cv-toc li a:hover { color: var(--fg); text-decoration: none; }
+.cv-toc li a.active { color: var(--link); border-left-color: var(--link); font-weight: 400; }
+.cv-end { height: 1px; }
+
 /* ── Footer ── */
 .footer {
   border-top: 1px solid var(--rule);
@@ -429,6 +464,13 @@ p:last-child { margin-bottom: 0; }
   .pub-year, .entry-year { padding-top: 0; }
   .facts { grid-template-columns: 1fr; gap: 0.15rem; }
   .facts dt { padding-top: 0.75rem; }
+  /* phones: no room for a side column, so the menu becomes a short row of
+     links under the page title and scrolls away with the page */
+  .cv-layout { grid-template-columns: minmax(0, 1fr); }
+  .cv-toc { padding: 1.25rem 0; }
+  .cv-toc-inner { position: static; }
+  .cv-toc ul { border-left: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
+  .cv-toc li a { margin-left: 0; padding: 0; border-left: 0; }
 }
 @media (max-width: 28rem) {
   .ribbon-text h1 { font-size: 2rem; }
@@ -436,7 +478,7 @@ p:last-child { margin-bottom: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .nav, .button { transition: none; }
+  .nav, .button, .cv-toc li a { transition: none; }
 }
 
 /* "Summary" toggle under each Research / Applied work entry */
