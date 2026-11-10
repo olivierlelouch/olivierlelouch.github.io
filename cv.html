@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
-<link rel="stylesheet" href="style.css?v=2026-11-10">
+<link rel="stylesheet" href="style.css?v=2026-11-10b">
 </head>
 <body class="wide">
 
@@ -50,7 +50,22 @@
       <p style="margin-top:1.75rem"><a class="button" href="assets/Olivier_Lelouch_CV.pdf" target="_blank" rel="noopener">View full resume (PDF)</a></p>
     </div>
 
-    <section class="block">
+    <div class="cv-layout">
+      <aside class="cv-toc" aria-label="Sections of this page">
+        <div class="cv-toc-inner">
+        <p class="cv-toc-label">On this page</p>
+        <ul>
+          <li><a href="#positions">Positions</a></li>
+          <li><a href="#teaching">Teaching</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#languages">Languages</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+        </ul>
+        </div>
+      </aside>
+      <div class="cv-main">
+
+    <section class="block" id="positions">
       <div class="col">
         <h2>Positions</h2>
         <ul class="entries">
@@ -101,7 +116,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="teaching">
       <div class="col">
         <h2>Teaching</h2>
         <ul class="entries">
@@ -116,7 +131,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="education">
       <div class="col">
         <h2>Education</h2>
         <ul class="entries">
@@ -155,7 +170,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="languages">
       <div class="col">
         <h2>Languages</h2>
         <ul class="entries">
@@ -166,7 +181,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="certifications">
       <div class="col">
         <h2>Certifications</h2>
         <ul class="entries">
@@ -180,6 +195,9 @@
         </ul>
       </div>
     </section>
+        <div class="cv-end" aria-hidden="true"></div>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -187,6 +205,6 @@
   <div class="frame">© 2026 Olivier Lelouch. Last updated November 2026.</div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=2026-11-10b"></script>
 </body>
 </html>
