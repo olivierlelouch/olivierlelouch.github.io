@@ -78,7 +78,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
-<link rel="stylesheet" href="style.css?v=2026-11-10">
+<link rel="stylesheet" href="style.css?v=2026-11-10b">
 </head>
 <body class="wide">
 
@@ -120,7 +120,21 @@
   </section>
 
   <div class="frame">
-    <section class="block">
+    <div class="cv-layout">
+      <aside class="cv-toc" aria-label="Sections of this page">
+        <div class="cv-toc-inner">
+        <p class="cv-toc-label">On this page</p>
+        <ul>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#work-in-progress">Work in progress</a></li>
+          <li><a href="#supervision">PhD supervision</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        </div>
+      </aside>
+      <div class="cv-main">
+
+    <section class="block" id="about">
       <div class="col">
         <h2>About Me</h2>
         <p>I am an Economist and PhD Candidate at UCL, specializing in the intersection of sovereign debt sustainability and the macroeconomics of energy security.</p>
@@ -130,7 +144,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="work-in-progress">
       <div class="col">
         <h2>Work in progress</h2>
         <ul class="pubs">
@@ -171,7 +185,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block" id="supervision">
       <div class="col">
         <h2>PhD supervision</h2>
         <ul class="people">
@@ -199,6 +213,9 @@
         </dl>
       </div>
     </section>
+        <div class="cv-end" aria-hidden="true"></div>
+      </div>
+    </div>
   </div>
 
 </main>
@@ -207,6 +224,6 @@
   <div class="frame">© 2026 Olivier Lelouch. Last updated November 2026.</div>
 </footer>
 
-<script src="site.js"></script>
+<script src="site.js?v=2026-11-10b"></script>
 </body>
 </html>
