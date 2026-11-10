@@ -17,7 +17,7 @@ if (!location.hash) {
   sentinel.scrollIntoView({ block: 'start' });
 }
 
-// CV page: the side menu marks the section being read. The observer watches a
+// CV and home pages: the side menu marks the section being read. The observer watches a
 // band near the top of the window (below the menu bar) rather than listening
 // for scroll events, so it also works inside the preview frame.
 const toc = document.querySelector('.cv-toc');
